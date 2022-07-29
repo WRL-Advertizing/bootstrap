@@ -1,9 +1,14 @@
+@use "../maps" as variables;
+@use "../mixins/breakpoints" as breakpoints;
+@use "../utilities" as *;
+@use "../mixins/utilities" as *;
+@use "../vendor/rfs" as *;
 // Loop over each breakpoint
-@each $breakpoint in map-keys($grid-breakpoints) {
+@each $breakpoint in map-keys(variables.$grid-breakpoints) {
 
   // Generate media query if needed
-  @include media-breakpoint-up($breakpoint) {
-    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  @include breakpoints.media-breakpoint-up($breakpoint) {
+    $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
     // Loop over each utility property
     @each $key, $utility in $utilities {
@@ -18,10 +23,10 @@
 
 // RFS rescaling
 @media (min-width: $rfs-mq-value) {
-  @each $breakpoint in map-keys($grid-breakpoints) {
-    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  @each $breakpoint in map-keys(variables.$grid-breakpoints) {
+    $infix: breakpoints.breakpoint-infix($breakpoint, variables.$grid-breakpoints);
 
-    @if (map-get($grid-breakpoints, $breakpoint) < $rfs-breakpoint) {
+    @if (map-get(variables.$grid-breakpoints, $breakpoint) < $rfs-breakpoint) {
       // Loop over each utility property
       @each $key, $utility in $utilities {
         // The utility can be disabled with `false`, thus check if the utility is a map first

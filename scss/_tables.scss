@@ -1,7 +1,8 @@
 //
 // Basic Bootstrap table
 //
-
+@use 'maps' as *;
+@use 'mixins' as *;
 .table {
   --#{$prefix}table-color: #{$table-color};
   --#{$prefix}table-bg: #{$table-bg};

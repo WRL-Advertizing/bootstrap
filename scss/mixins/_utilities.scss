@@ -1,4 +1,5 @@
 // Utility generator
+@use "../maps" as variables;
 // Used to generate utilities & print utilities
 @mixin generate-utility($utility, $infix, $is-rfs-media-query: false) {
   $values: map-get($utility, values);
@@ -55,12 +56,12 @@
 
       @if $is-css-var {
         .#{$property-class + $infix + $property-class-modifier} {
-          --#{$prefix}#{$css-variable-name}: #{$value};
+          --#{variables.$prefix}#{$css-variable-name}: #{$value};
         }
 
         @each $pseudo in $state {
           .#{$property-class + $infix + $property-class-modifier}-#{$pseudo}:#{$pseudo} {
-            --#{$prefix}#{$css-variable-name}: #{$value};
+            --#{variables.$prefix}#{$css-variable-name}: #{$value};
           }
         }
       } @else {
@@ -68,10 +69,10 @@
           @each $property in $properties {
             @if $is-local-vars {
               @each $local-var, $variable in $is-local-vars {
-                --#{$prefix}#{$local-var}: #{$variable};
+                --#{variables.$prefix}#{$local-var}: #{$variable};
               }
             }
-            #{$property}: $value if($enable-important-utilities, !important, null);
+            #{$property}: $value if(variables.$enable-important-utilities, !important, null);
           }
         }
 
@@ -80,10 +81,10 @@
             @each $property in $properties {
               @if $is-local-vars {
                 @each $local-var, $variable in $is-local-vars {
-                  --#{$prefix}#{$local-var}: #{$variable};
+                  --#{variables.$prefix}#{$local-var}: #{$variable};
                 }
               }
-              #{$property}: $value if($enable-important-utilities, !important, null);
+              #{$property}: $value if(variables.$enable-important-utilities, !important, null);
             }
           }
         }
